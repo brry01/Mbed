@@ -1,0 +1,28 @@
+#include "mbed.h"
+
+// Conexiones de hardware
+DigitalIn encender(p5), apagar(p6), guarda(p7), temp(p8);
+DigitalOut led1(p9), led2(p10), led3(p11), led4(p12);
+
+int main() {
+    while(1) {
+        // Leer estados actuales
+        bool motor_listo = guarda.read() && !temp.read();
+        bool boton_apagar = apagar.read();
+        
+        // Lógica de control principal
+        if(encender.read() && motor_listo) {
+            led2 = 1;  // Encender motor
+        }
+        if(boton_apagar || !motor_listo) {
+            led2 = 0;  // Apagar motor
+        }
+        
+        // Actualizar indicadores
+        led1 = motor_listo;  // LED encendido solo cuando está listo
+        led3 = !guarda.read();        // Falla por guarda abierta
+        led4 = temp.read();          // Falla por temperatura
+        
+        wait_ms(50);  // Espera para estabilidad
+    }
+}

@@ -1,0 +1,82 @@
+#include "mbed.h"
+
+DigitalOut segmentA(D2); // Segmento a
+DigitalOut segmentB(D3); // Segmento b
+DigitalOut segmentC(D4); // Segmento c
+DigitalOut segmentD(D5); // Segmento d
+DigitalOut segmentE(D6); // Segmento e
+DigitalOut segmentF(D7); // Segmento f
+DigitalOut segmentG(D8); // Segmento g
+
+void displayChar(char c) {
+    switch (c) {
+        case 'H':
+            segmentA = 1;
+            segmentB = 0;
+            segmentC = 0;
+            segmentD = 1;
+            segmentE = 0;
+            segmentF = 0;
+            segmentG = 0;
+            break;
+        case 'E':
+            segmentA = 1;
+            segmentB = 0;
+            segmentC = 0;
+            segmentD = 1;
+            segmentE = 1;
+            segmentF = 1;
+            segmentG = 0;
+            break;
+        case 'L':
+            segmentA = 0;
+            segmentB = 0;
+            segmentC = 0;
+            segmentD = 1;
+            segmentE = 1;
+            segmentF = 1;
+            segmentG = 0;
+            break;
+        case 'P':
+            segmentA = 1;
+            segmentB = 1;
+            segmentC = 0;
+            segmentD = 0;
+            segmentE = 1;
+            segmentF = 1;
+            segmentG = 1;
+            break;
+        default:
+            // Apagar todos los segmentos si no es un carácter válido
+            segmentA = 0;
+            segmentB = 0;
+            segmentC = 0;
+            segmentD = 0;
+            segmentE = 0;
+            segmentF = 0;
+            segmentG = 0;
+            break;
+    }
+}
+
+int main() {
+    printf("Mostrar "HELP" en el display \n");
+
+    while (true) {
+        // Mostrar 'H'
+        displayChar('H');
+        wait(1.0);
+
+        // Mostrar 'E'
+        displayChar('E');
+        wait(1.0);
+
+        // Mostrar 'L'
+        displayChar('L');
+        wait(1.0);
+
+        // Mostrar 'P'
+        displayChar('P');
+        wait(1.0);
+    }
+}

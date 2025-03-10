@@ -1,0 +1,46 @@
+#include "mbed.h"
+
+BusIn switches(p5, p6, p7, p8);
+BusOut leds(p9, p10, p11);
+
+int main() {
+    while (true) {
+        int switch_valor = switches.read(); 
+
+        switch (switch_valor) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                leds = 0b001;
+                break;
+            case 4:
+            case 5:
+                leds = 0b010;
+                break;
+            case 6:
+            case 7:
+                leds = 0b011;
+                break;
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+                leds = 0b110;
+                break;
+            case 12:
+            case 13:
+            case 14:
+                leds = 0b100;
+                break;
+            case 15:
+                leds = 0b111;
+                break;
+            default:
+                leds = 0b000;
+                break;
+        }
+
+        wait(0.25);
+    }
+}

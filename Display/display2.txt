@@ -1,0 +1,23 @@
+#include "mbed.h"
+#include "C12832.h"
+
+C12832 lcd(SPI_MOSI, SPI_SCK, SPI_MISO, p8, p11);
+
+int main() {
+    printf("Mostrar "HELP" en el display \n");
+
+    // Limpiamos la pantalla
+    lcd.cls();
+
+    // Mostrar la palabra "HELP" en el display
+    lcd.locate(5, 10);
+    lcd.printf("HELP");
+
+    lcd.copy_to_lcd();
+
+    printf("'HELP' mostrado en la pantalla\n");
+
+    while(1) {
+        wait(1.0);
+    }
+}

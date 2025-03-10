@@ -1,0 +1,86 @@
+#include "mbed.h"
+
+// Configuración de pines
+InterruptIn boton_adulto(p5); // Entrada adulto
+InterruptIn boton_nino(p6); // Entrada niño
+InterruptIn boton_incendio(p7); // Alarma
+
+BusOut asientos(p8, p9, p10, p11, p12, p13, p14, p15); // 8 asientos
+
+// Estados del sistema
+volatile int asientos_disponibles = 8;
+volatile int adultos_esperando = 0;
+volatile int ninos_esperando = 0;
+volatile bool emergencia = false;
+
+Timer barbero1, barbero2, barbero3; // Temporizadores para los barberos
+
+void actualizar_leds() {
+    asientos = (1 << (8 - asientos_disponibles)) - 1;
+}
+
+void adulto_interrupcion() {
+    if(!emergencia && asientos_disponibles >= 1) {
+        asientos_disponibles--;
+        adultos_esperando++;
+        actualizar_leds();
+    }
+}
+
+void nino_interrupcion() {
+    if(!emergencia && asientos_disponibles >= 2) {
+        asientos_disponibles -= 2;
+        ninos_esperando++;
+        actualizar_leds();
+    }
+}
+
+void incendio_interrupcion() {
+    emergencia = true;
+    asientos_disponibles = 8;
+    adultos_esperando = ninos_esperando = 0;
+    asientos = 0;
+    barbero1.stop();
+    barbero2.stop();
+    barbero3.stop();
+}
+
+int main() {
+    boton_adulto.rise(&adulto_interrupcion);
+    boton_nino.rise(&nino_interrupcion);
+    boton_incendio.rise(&incendio_interrupcion);
+
+    while(1) {
+        if(!emergencia) {
+            // Barberos 1 y 2 (adultos)
+            if(adultos_esperando > 0) {
+                if(barbero1.read() >= 12.0) {
+                    asientos_disponibles++;
+                    barbero1.reset();
+                    adultos_esperando--;
+                    actualizar_leds();
+                }
+                if(barbero2.read() >= 12.0) {
+                    asientos_disponibles++;
+                    barbero2.reset();
+                    adultos_esperando--;
+                    actualizar_leds();
+                }
+            }
+            
+            // Barbero 3 (niños)
+            if(ninos_esperando > 0 && barbero3.read() >= 12.0) {
+                asientos_disponibles += 2;
+                barbero3.reset();
+                ninos_esperando--;
+                actualizar_leds();
+            }
+            
+            // Iniciar cortes
+            if(adultos_esperando > 0 && barbero1.read() == 0) barbero1.start();
+            if(adultos_esperando > 0 && barbero2.read() == 0) barbero2.start();
+            if(ninos_esperando > 0 && barbero3.read() == 0) barbero3.start();
+        }
+        wait_ms(100);
+    }
+}
