@@ -1,0 +1,42 @@
+#include "mbed.h"
+
+//Dependiendo de ciertos intervalos, los LEDs prenden o no.
+//Implementación de control por buses.
+
+BusIn mySwitches(p5,p6,p7,p8);
+BusOut myleds(p9,p10,p11); //ROJO, AMARILLO, AZUL
+
+int main() {
+    while (1) {
+        switch(mySwitches){
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                myleds=0b100;
+                    break;
+            case 4:
+            case 5:
+                myleds=0b010;
+                    break;
+            case 6:
+            case 7:
+                myleds=0b110;
+                    break;
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+                myleds=0b011;
+                    break;
+            case 12:
+            case 13:
+            case 14:
+                myleds=0b001;
+                    break;
+            case 15:
+                myleds=0b111;
+                    break;
+        }
+    }
+}
