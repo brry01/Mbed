@@ -56,22 +56,22 @@ Este sistema modela de manera efectiva una barbería con restricciones en tiempo
 
 ## Imágenes de Práctica
 *Inicio*
-![Image](https://github.com/user-attachments/assets/4063446b-9a9e-467e-a740-06e0a8c8c4c0)
+![Image](https://github.com/user-attachments/assets/11b97f77-bb94-4316-9b4e-41370478c43f)
 
 *Adulto*
-![Image](https://github.com/user-attachments/assets/457d6e5e-377c-4448-92f9-1c8d15fb47e4)
+![Image](https://github.com/user-attachments/assets/237ad157-7c43-4db2-974a-11b7a44d3c95)
 
 *Niño*
-![Image](https://github.com/user-attachments/assets/8fe7293b-e819-4fcc-85d2-89e7b938f0c8)
+![Image](https://github.com/user-attachments/assets/ccbee47d-552b-4448-ac3d-bc6e046be732)
 
 *Adulto y Niño*
-![Image](https://github.com/user-attachments/assets/25079557-d044-428e-8d8f-ec79329f942e)
+![Image](https://github.com/user-attachments/assets/413bf66e-1237-4b02-97b0-cf78817a909b)
 
 *Dos Niños*
-![Image](https://github.com/user-attachments/assets/eb61bcc9-ab8e-459f-8102-8970db3581f8)
+![Image](https://github.com/user-attachments/assets/1e8b7e07-87e0-45a5-ac67-a9e4c9fd3e75)
 
 *Asientos Ocupados*
-![Image](https://github.com/user-attachments/assets/e810a2fe-5bc1-4d44-af54-ea8f1226ebc9)
+![Image](https://github.com/user-attachments/assets/04580b57-9c74-4b65-bb9b-3d8a7f3f1cd7)
 
 *Emergencia*
-![Image](https://github.com/user-attachments/assets/581387c0-dfa8-4721-a361-a6115d402298)
+![Image](https://github.com/user-attachments/assets/e9c1e940-66b4-4975-8002-ba16de0d43fd)
