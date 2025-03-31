@@ -1,4 +1,3 @@
-```markdown
 # Botones y LEDs con Mbed
 
 Este proyecto en Mbed permite controlar tres LEDs utilizando cuatro botones. Cada botón realiza una acción diferente sobre los LEDs.
@@ -106,4 +105,3 @@ int main(){
 - El **Botón 4** enciende todos los LEDs.
 
 Este código es un ejemplo básico de cómo usar interrupciones con botones para controlar LEDs en una placa Mbed.
-```
