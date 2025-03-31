@@ -1,0 +1,70 @@
+#include "mbed.h"
+#include "rtos.h"
+
+// Simulación de barbería con interrupciones 
+
+// Simulación de LEDs para asientos y barberos
+DigitalOut seats[8] = {LED1, LED2, LED3, LED4, LED5, LED6, LED7, LED8};
+DigitalOut barber1(LED1), barber2(LED2), barber3(LED3);
+
+// Interrupciones para llegada de clientes y alarma de incendio
+InterruptIn adult_button(USER_BUTTON);
+InterruptIn child_button(PA_0);
+InterruptIn fire_alarm(PA_1);
+
+// Semáforo para gestionar la capacidad de la sala de espera
+Semaphore waiting_room(8);
+Mutex barber_mutex;
+
+void adult_arrival() {
+    if (waiting_room.try_acquire()) {
+        printf("Adult entered waiting room.\n");
+        ThisThread::sleep_for(1s);
+        if (barber_mutex.trylock()) {
+            printf("Adult is getting a haircut.\n");
+            barber1 = !barber1;
+            ThisThread::sleep_for(12s);
+            barber1 = !barber1;
+            barber_mutex.unlock();
+            printf("Adult left the barbershop.\n");
+        }
+        waiting_room.release();
+    } else {
+        printf("No space in waiting area for adult.\n");
+    }
+}
+
+void child_arrival() {
+    if (waiting_room.try_acquire(2)) { // Niño + padre
+        printf("Child and parent entered waiting room.\n");
+        ThisThread::sleep_for(1s);
+        if (barber_mutex.trylock()) {
+            printf("Child is getting a haircut.\n");
+            barber3 = !barber3;
+            ThisThread::sleep_for(12s);
+            barber3 = !barber3;
+            barber_mutex.unlock();
+            printf("Child and parent left the barbershop.\n");
+        }
+        waiting_room.release(2);
+    } else {
+        printf("No space in waiting area for child and parent.\n");
+    }
+}
+
+void fire_evacuate() {
+    printf("Fire alarm triggered! Everyone evacuate!\n");
+    while (waiting_room.get_count() < 8) {
+        waiting_room.release();
+    }
+}
+
+int main() {
+    adult_button.rise(&adult_arrival);
+    child_button.rise(&child_arrival);
+    fire_alarm.rise(&fire_evacuate);
+    
+    while (true) {
+        ThisThread::sleep_for(1s);
+    }
+}
