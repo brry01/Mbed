@@ -75,7 +75,7 @@ Este programa fue desarrollado como parte de la práctica 5 de la materia Electr
 **Punto 1**
 ![Image](https://github.com/user-attachments/assets/49ee7fd5-be45-4265-9edd-854f5b96a714)
 
-** Punto 2**
+**Punto 2**
 ![Image](https://github.com/user-attachments/assets/12f89d10-c882-4b52-b5f5-15f2b890733f)
 
 **Punto 3**
