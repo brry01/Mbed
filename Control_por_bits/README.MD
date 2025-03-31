@@ -77,3 +77,20 @@ El código principal se ejecuta en un bucle infinito que realiza las siguientes 
 
 Compila y carga este código en una placa compatible con Mbed. Conecta los interruptores y los LEDs a los pines especificados y observa el comportamiento de los LEDs según el estado de los interruptores.
 
+## Imágenes de Práctica
+
+![Image](https://github.com/user-attachments/assets/6a277239-d74b-4d8b-8180-c95385155a96)
+![Image](https://github.com/user-attachments/assets/91adf848-8b39-4fc8-8c0d-aa65777b3318)
+![Image](https://github.com/user-attachments/assets/bbafd322-3fb6-436a-8a82-5765c5a4811b)
+![Image](https://github.com/user-attachments/assets/4bb95823-b973-49af-aba4-fc15371983b4)
+![Image](https://github.com/user-attachments/assets/3b9e202d-6a38-4120-b1ff-df8c45e695b7)
+![Image](https://github.com/user-attachments/assets/1d13682a-e3a4-4787-9ae6-12982a8eb918)
+![Image](https://github.com/user-attachments/assets/bcc94a93-f8d4-4f8c-8cc2-4689c2cc13d7)
+![Image](https://github.com/user-attachments/assets/e71e3f32-763c-4946-af11-1a3b536e74a7)
+![Image](https://github.com/user-attachments/assets/9d90af68-c914-4e20-92ed-50dbfe87968a)
+![Image](https://github.com/user-attachments/assets/001ffdcf-4e5b-4ad6-b181-3adb099ef6d8)
+![Image](https://github.com/user-attachments/assets/8ad75222-51c1-4db0-9051-be3136b2f482)
+![Image](https://github.com/user-attachments/assets/11d8a04c-4435-440c-96b0-7995cf03d1f8)
+![Image](https://github.com/user-attachments/assets/7f027f6e-557b-45da-9abb-7d175190b282)
+![Image](https://github.com/user-attachments/assets/9cdb9b88-bd1a-44b9-b801-ea58624fd257)
+![Image](https://github.com/user-attachments/assets/03a42090-dbff-43db-bbd5-5b910a12ba76)
