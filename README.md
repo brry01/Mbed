@@ -6,12 +6,12 @@ Este repositorio contiene una colección de proyectos y ejemplos desarrollados p
 
 ## Contenido del Repositorio
 
-1. [Barberia](./barberia)
-2. [Botón Programación Asíncrona](./boton_programacion_asincrona)
-3. [Botones LED](./botones_led)
-4. [Buses](./buses)
-5. [Control por Bits](./control_por_bits)
-6. [Control por Buses](./control_por_buses)
+1. [Barberia](https://github.com/brry01/Mbed/tree/main/Barberia)
+2. [Botón Programación Asíncrona](https://github.com/brry01/Mbed/tree/main/Boton_Programacion_Asincrona)
+3. [Botones LED](https://github.com/brry01/Mbed/tree/main/Botones_LED)
+4. [Buses](https://github.com/brry01/Mbed/tree/main/Buses)
+5. [Control por Bits](https://github.com/brry01/Mbed/tree/main/Control_por_bits)
+6. [Control por Buses](Control_por_buses)
 7. [Display](./display)
 8. [Display Shift Register](./display_shift_register)
 9. [Interrupciones](./interrupciones)
