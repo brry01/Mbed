@@ -76,3 +76,6 @@ El código principal se ejecuta en un bucle infinito que realiza las siguientes 
 ## Uso
 
 Compila y carga este código en una placa compatible con Mbed. Conecta los interruptores y los LEDs a los pines especificados y observa el comportamiento de los LEDs según el estado de los interruptores.
+
+## Imágnes de Práctica
+![alt text](<WhatsApp Image 2025-03-27 at 18.55.17_972ead3d.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.20_5d322fc8.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.20_9bf71aa2.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.20_26478883.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.20_14410a8e.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.19_3a82be02.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.20_614e1e8a.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.20_7752aac8.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.19_50a689aa.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.19_afcd1204.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.18_68f1f6c4.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.19_26959cb7.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.17_88a0ddf8.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.18_0d33cea7.jpg>) ![alt text](<WhatsApp Image 2025-03-27 at 18.55.17_a5076500.jpg>)
