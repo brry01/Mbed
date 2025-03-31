@@ -1,0 +1,35 @@
+/* 
+ * Trial SPI Master: Sends two words in turn to an external Shift Register.
+ */
+
+#include "mbed.h"
+
+// Definición de pines
+DigitalOut CS(D10);               // Chip Select
+SPI ser_port(D11, D12, D13);      // MOSI, MISO, SCLK
+
+// Variable para almacenar el dato a enviar
+char switch_word;
+
+int main() {
+    // Configuración del puerto SPI
+    ser_port.format(8, 0);        // Configuración de 8 bits por dato, modo 0
+    ser_port.frequency(1000000); // Frecuencia de reloj: 1 MHz
+    CS = 1;                       // Chip Select en estado inactivo (alto)
+
+    while (true) {
+        // Enviar el primer dato (0xAA)
+        switch_word = 0xAA;       // Configurar el dato a transmitir
+        CS = 0;                   // Seleccionar el dispositivo esclavo
+        ser_port.write(switch_word); // Enviar el dato
+        CS = 1;                   // Desactivar el dispositivo esclavo
+        thread_sleep_for(500);    // Esperar 500 ms
+
+        // Enviar el segundo dato (0x55)
+        switch_word = 0x55;       // Configurar el dato a transmitir
+        CS = 0;                   // Seleccionar el dispositivo esclavo
+        ser_port.write(switch_word); // Enviar el dato
+        CS = 1;                   // Desactivar el dispositivo esclavo
+        thread_sleep_for(500);    // Esperar 500 ms
+    }
+}
