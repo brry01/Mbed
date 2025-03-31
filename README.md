@@ -80,6 +80,6 @@ cd Mbed
 
 ## Contacto
 
-- **Nombre:** [Bernardo Paz]
+- **Nombre:** Bernardo Paz
 - **Email:** [bernardo.pazsa@gmail.com]
 - **GitHub:** [https://github.com/brry01](https://github.com/brry01)
