@@ -1,6 +1,6 @@
-# Display Shift Register - Práctica 5
+# Display Shift Register - Práctica 6.3
 
-Este programa controla un LCD y un sensor de temperatura MAX6675 utilizando un registro de desplazamiento 74HC595 y la plataforma Mbed. El código permite mostrar mensajes en el LCD y leer la temperatura del sensor, actualizándola periódicamente.
+Este programa controla un LCD, un sensor de temperatura MAX6675, un potenciómetro y un LED con PWM utilizando un registro de desplazamiento 74HC595 y la plataforma Mbed. El código permite mostrar mensajes en el LCD, leer la temperatura del sensor, ajustar la intensidad del LED según el potenciómetro y actualizar la información periódicamente.
 
 ## Descripción del Código
 
@@ -8,7 +8,8 @@ El programa utiliza las siguientes funcionalidades principales:
 
 1. **Control del LCD**: Manejo del LCD mediante un registro de desplazamiento 74HC595.
 2. **Lectura de Temperatura**: Comunicación con el sensor MAX6675 para obtener la temperatura en grados Celsius.
-3. **Interfaz SPI**: Comunicación serial para controlar tanto el 74HC595 como el MAX6675.
+3. **Control de LED con PWM**: Ajuste de la intensidad del LED en función del valor leído del potenciómetro.
+4. **Interfaz SPI**: Comunicación serial para controlar tanto el 74HC595 como el MAX6675.
 
 ### Funciones Principales
 
@@ -27,14 +28,19 @@ El programa utiliza las siguientes funcionalidades principales:
 #### Lectura del MAX6675
 - `readTemperature()`: Lee la temperatura del sensor MAX6675 y la convierte a grados Celsius.
 
+#### Control del LED con PWM
+- `led.write(float value)`: Ajusta la intensidad del LED en función del valor del potenciómetro (0.0 a 1.0).
+
 ### Flujo del Programa
 
-1. Configura la interfaz SPI y el LCD.
+1. Configura la interfaz SPI, el LCD y el LED con PWM.
 2. Muestra el mensaje "Iniciando..." en el LCD.
 3. En un bucle infinito:
    - Lee la temperatura del sensor MAX6675.
-   - Muestra la temperatura en el puerto serial.
-   - Actualiza la temperatura en el LCD.
+   - Lee el valor del potenciómetro.
+   - Muestra la temperatura y el contador en el puerto serial.
+   - Actualiza la temperatura y el contador en el LCD.
+   - Ajusta la intensidad del LED según el valor del potenciómetro.
 
 ### Pines Utilizados
 
@@ -43,6 +49,8 @@ El programa utiliza las siguientes funcionalidades principales:
 - **D13**: SCK (Serial Clock) para la sincronización de datos.
 - **D10**: Latch del 74HC595.
 - **D9**: Chip Select (CS) del MAX6675.
+- **D3**: LED con PWM.
+- **A0**: Entrada analógica para el potenciómetro.
 
 ## Requisitos
 
@@ -51,32 +59,25 @@ El programa utiliza las siguientes funcionalidades principales:
   - Registro de desplazamiento 74HC595.
   - Sensor de temperatura MAX6675.
   - LCD con interfaz de 4 bits.
+  - Potenciómetro.
+  - LED.
 - **Software**:
   - Entorno de desarrollo Mbed.
 
 ## Compilación y Ejecución
 
-1. Copia el archivo `display_shift_register_5.1.txt` en tu proyecto Mbed.
+1. Copia el archivo `display_shift_register_6.3.txt` en tu proyecto Mbed.
 2. Configura los pines de acuerdo con tu hardware.
 3. Compila y carga el programa en tu microcontrolador.
-4. Observa la temperatura en el LCD y en el puerto serial.
+4. Observa la temperatura, el contador y el ajuste del LED en el LCD y en el puerto serial.
 
 ## Notas
 
 - Asegúrate de que el sensor MAX6675 esté correctamente conectado y alimentado.
 - Los tiempos de espera (`ThisThread::sleep_for`) son críticos para el correcto funcionamiento del LCD y el sensor.
 - Si el sensor MAX6675 no está conectado o presenta un error, la función `readTemperature()` devolverá `-1`.
+- El valor del potenciómetro debe estar en el rango de 0.0 a 1.0 para ajustar correctamente la intensidad del LED.
 
 ## Autor
 
-Este programa fue desarrollado como parte de la práctica 5 de la materia Electrónica Digital Avanzada.
-
-## Imágenes de Práctica
-**Punto 1**
-![Image](https://github.com/user-attachments/assets/49ee7fd5-be45-4265-9edd-854f5b96a714)
-
-**Punto 2**
-![Image](https://github.com/user-attachments/assets/12f89d10-c882-4b52-b5f5-15f2b890733f)
-
-**Punto 3**
-![Image](https://github.com/user-attachments/assets/b1da78ff-f1cb-4699-be59-3c49fa3ca495)
+Este programa fue desarrollado como parte de la práctica 6 de la materia Electrónica Digital Avanzada.
