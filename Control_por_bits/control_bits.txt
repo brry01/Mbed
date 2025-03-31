@@ -1,0 +1,46 @@
+#include "mbed.h"
+
+DigitalIn switch0(p5);
+DigitalIn switch1(p6);
+DigitalIn switch2(p7);
+DigitalIn switch3(p8);
+
+DigitalOut ledRojo(p9);      
+DigitalOut ledAmarillo(p10);
+DigitalOut ledAzul(p11);    
+
+int main() {
+    while (1) {
+        // Leer el estado de los switches
+        int switchState = (switch0.read() << 0) | (switch1.read() << 1) | (switch2.read() << 2) | (switch3.read() << 3);
+
+        if (switchState >= 0 && switchState <= 3) {
+            ledRojo = 1; 
+            ledAmarillo = 0;
+            ledAzul = 0;
+
+        } else if (switchState >= 4 && switchState <= 5) {
+            ledRojo = 0;
+            ledAmarillo = 1; 
+            ledAzul = 0;
+
+        } else if (switchState >= 6 && switchState <= 7) {
+            ledRojo = 1; 
+            ledAmarillo = 1; 
+            ledAzul = 0;
+
+        } else if (switchState >= 8 && switchState <= 11) {
+            ledRojo = 0;
+            ledAmarillo = 1; 
+            ledAzul = 1; 
+        } else if (switchState >= 12 && switchState <= 14) {
+            ledRojo = 0;
+            ledAmarillo = 0; 
+            ledAzul = 1; 
+        } else if (switchState == 15) {
+            ledRojo = 1; 
+            ledAmarillo = 1; 
+            ledAzul = 1; 
+        }
+    }
+}

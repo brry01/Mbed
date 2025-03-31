@@ -1,0 +1,77 @@
+#include "mbed.h"
+
+DigitalIn BotonArranque(p5);  
+DigitalIn BotonParo(p6);      
+DigitalIn Guarda(p7);         
+DigitalIn Temperatura(p8);   
+
+DigitalOut led1(p9);   //Motor listo para arrancar
+DigitalOut led2(p10);  //Motor está trabajando
+DigitalOut led3(p11);  //Falla de guarda de seguridad
+DigitalOut led4(p12);  //Exceso de temperatura
+
+//Estados del motor
+bool MotorCorriendo = false;  
+bool MotorListo = false;     
+
+void VerificacionMotor() {
+    //El motor listo si la guarda está cerrada y la temperatura es normal
+    if(Guarda.read() == 1 && Temperatura.read() == 0) {
+        MotorListo = true;
+        led1 = 1;  
+    } 
+    else{
+        MotorListo = false;
+        led1 = 0; 
+    }
+}
+
+int main() {
+    while (1) {
+        VerificacionMotor();
+
+        if(MotorListo && BotonArranque.read() == 1 && !MotorCorriendo){
+            MotorCorriendo = true;
+            led2 = 1;  // LED2: Motor en funcionamiento
+            led3 = 0;  // LED3: Falla de guarda de seguridad
+            led4 = 0;  // LED4: Falla de temperatura
+        }
+
+        //Si el motor está funcionando y la guarda se abre o hay un exceso de temperatura
+        if(MotorCorriendo){
+            if (Guarda.read() == 0){  //Guarda de seguridad abierta
+                MotorCorriendo = false;
+                led3 = 1;  //Falla de guarda de seguridad
+                led2 = 0;  //Motor detenido
+            } 
+            else if (Temperatura.read() == 1){  //Exceso de temperatura
+                MotorCorriendo = false;
+                led4 = 1;  //Falla de exceso de temperatura
+                led2 = 0;  //Motor detenido
+            }
+        }
+
+        //Si el botón de paro es presionado, se apaga el motor
+        if (BotonParo.read() == 1 && MotorCorriendo) {
+            MotorCorriendo = false;
+            led2 = 0;  //Motor detenido
+        }
+
+        //El motor puede arrancar de nuevo cuando el botón de paro se libera o la temperatura es normal
+        if (!MotorCorriendo) {
+            if (BotonParo.read() == 0) {  
+                if (MotorListo) {  
+                    led1 = 1;  //Motor listo para arrancar
+                }
+            }
+        }
+
+        //Parpadeo del LED1 cuando el sistema no está listo para arrancar
+        if (!MotorListo) {
+            led1 = !led1; 
+            wait(0.5);  
+        }
+        
+        wait(0.1);  
+    }
+}
