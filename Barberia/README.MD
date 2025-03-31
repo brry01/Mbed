@@ -71,7 +71,7 @@ Este sistema modela de manera efectiva una barbería con restricciones en tiempo
 ![Image](https://github.com/user-attachments/assets/eb61bcc9-ab8e-459f-8102-8970db3581f8)
 
 *Asientos Ocupados*
-![Image](https://github.com/user-attachments/assets/581387c0-dfa8-4721-a361-a6115d402298)
+![Image](https://github.com/user-attachments/assets/e810a2fe-5bc1-4d44-af54-ea8f1226ebc9)
 
 *Emergencia*
-![Image](https://github.com/user-attachments/assets/e810a2fe-5bc1-4d44-af54-ea8f1226ebc9)
+![Image](https://github.com/user-attachments/assets/581387c0-dfa8-4721-a361-a6115d402298)
