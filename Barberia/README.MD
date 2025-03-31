@@ -53,3 +53,25 @@ La función `main` configura los manejadores de interrupciones y entra en un buc
 ## Resumen
 
 Este sistema modela de manera efectiva una barbería con restricciones en tiempo real, utilizando interrupciones para la entrada de usuarios y temporizadores para la programación de tareas. También incluye un mecanismo robusto para manejar emergencias reiniciando el estado del sistema.
+
+## Imágenes de Práctica
+*Inicio*
+![Image](https://github.com/user-attachments/assets/4063446b-9a9e-467e-a740-06e0a8c8c4c0)
+
+*Adulto*
+![Image](https://github.com/user-attachments/assets/457d6e5e-377c-4448-92f9-1c8d15fb47e4)
+
+*Niño*
+![Image](https://github.com/user-attachments/assets/8fe7293b-e819-4fcc-85d2-89e7b938f0c8)
+
+*Adulto y Niño*
+![Image](https://github.com/user-attachments/assets/25079557-d044-428e-8d8f-ec79329f942e)
+
+*Dos Niños*
+![Image](https://github.com/user-attachments/assets/eb61bcc9-ab8e-459f-8102-8970db3581f8)
+
+*Asientos Ocupados*
+![Image](https://github.com/user-attachments/assets/581387c0-dfa8-4721-a361-a6115d402298)
+
+*Emergencia*
+![Image](https://github.com/user-attachments/assets/e810a2fe-5bc1-4d44-af54-ea8f1226ebc9)
