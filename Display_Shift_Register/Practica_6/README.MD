@@ -1,4 +1,4 @@
-# Display Shift Register - Práctica 6.3
+# Display Shift Register - Práctica 6
 
 Este programa controla un LCD, un sensor de temperatura MAX6675, un potenciómetro y un LED con PWM utilizando un registro de desplazamiento 74HC595 y la plataforma Mbed. El código permite mostrar mensajes en el LCD, leer la temperatura del sensor, ajustar la intensidad del LED según el potenciómetro y actualizar la información periódicamente.
 
