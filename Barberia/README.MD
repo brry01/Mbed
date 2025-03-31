@@ -56,7 +56,7 @@ Este sistema modela de manera efectiva una barbería con restricciones en tiempo
 
 ## Imágenes de Práctica
 *Inicio*
-![Image](https://github.com/user-attachments/assets/11b97f77-bb94-4316-9b4e-41370478c43f)
+![Image](https://github.com/user-attachments/assets/413bf66e-1237-4b02-97b0-cf78817a909b)
 
 *Adulto*
 ![Image](https://github.com/user-attachments/assets/237ad157-7c43-4db2-974a-11b7a44d3c95)
@@ -65,7 +65,7 @@ Este sistema modela de manera efectiva una barbería con restricciones en tiempo
 ![Image](https://github.com/user-attachments/assets/ccbee47d-552b-4448-ac3d-bc6e046be732)
 
 *Adulto y Niño*
-![Image](https://github.com/user-attachments/assets/413bf66e-1237-4b02-97b0-cf78817a909b)
+![Image](https://github.com/user-attachments/assets/11b97f77-bb94-4316-9b4e-41370478c43f)
 
 *Dos Niños*
 ![Image](https://github.com/user-attachments/assets/1e8b7e07-87e0-45a5-ac67-a9e4c9fd3e75)
