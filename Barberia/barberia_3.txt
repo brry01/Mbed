@@ -1,0 +1,185 @@
+#include "mbed.h"
+#include "mbed_events.h"
+#include "platform/mbed_thread.h"
+#include "rtos.h"
+#include "chrono"
+using namespace std::chrono_literals;
+
+// --- Configuración de Hardware ---
+BusOut leds_asientos(D8, D9, D10, D11, D12, D13, D14, D15);  // 8 LEDs = 8 asientos
+InterruptIn boton_adulto(D5);  // Botón adulto (PullDown para evitar flotación)
+InterruptIn boton_nino(D6);    // Botón niño 
+InterruptIn boton_incendio(D7); // Botón emergencia
+
+// LEDs de estado (opcionales, para depuración)
+DigitalOut led_barbero1(LED1);  // Barbero 1 ocupado
+DigitalOut led_barbero2(LED2);  // Barbero 2 ocupado
+DigitalOut led_barbero3(LED3);  // Barbero 3 ocupado
+DigitalOut led_alarma(LED4);    // Emergencia activa
+
+// --- Variables del Sistema (protegidas por mutex) ---
+Mutex mutex;
+struct {
+    int asientos_ocupados = 0;  // 0-8 (1 LED por asiento)
+    int adultos_en_espera = 0;
+    int ninos_en_espera = 0;
+    bool emergencia = false;
+    bool barbero1_libre = true;
+    bool barbero2_libre = true;
+    bool barbero3_libre = true;
+} estado;
+
+// --- Temporizadores ---
+Timer timer_barbero1;
+Timer timer_barbero2;
+Timer timer_barbero3;
+Timeout debounce_adulto, debounce_nino, debounce_incendio;  // Para evitar rebotes
+
+EventQueue cola_eventos(32 * EVENTS_EVENT_SIZE);  // Cola de eventos segura
+
+// --- Funciones Principales ---
+void actualizar_leds() {
+    mutex.lock();
+    // Actualiza los LEDs de los asientos (Ej: si hay 3 asientos ocupados, enciende los 3 primeros LEDs)
+    for (int i = 0; i < 8; i++) {
+        leds_asientos[i] = (i < estado.asientos_ocupados) ? 1 : 0;
+    }
+
+    // Actualizar LEDs de estado (opcional)
+    led_barbero1 = !estado.barbero1_libre;
+    led_barbero2 = !estado.barbero2_libre;
+    led_barbero3 = !estado.barbero3_libre;
+    led_alarma = estado.emergencia;
+    mutex.unlock();
+}
+
+void atender_cliente_adulto() {
+    mutex.lock();
+    if (estado.barbero1_libre && estado.adultos_en_espera > 0) {
+        estado.barbero1_libre = false;
+        estado.adultos_en_espera--;
+        timer_barbero1.start();
+        printf("Barbero 1 cortando a adulto (12 min)\n");
+    } 
+    else if (estado.barbero2_libre && estado.adultos_en_espera > 0) {
+        estado.barbero2_libre = false;
+        estado.adultos_en_espera--;
+        timer_barbero2.start();
+        printf("Barbero 2 cortando a adulto (12 min)\n");
+    }
+    mutex.unlock();
+    actualizar_leds();
+}
+
+void atender_cliente_nino() {
+    mutex.lock();
+    if (estado.barbero3_libre && estado.ninos_en_espera > 0) {
+        estado.barbero3_libre = false;
+        estado.ninos_en_espera--;
+        timer_barbero3.start();
+        printf("Barbero 3 cortando a niño (12 min)\n");
+    }
+    mutex.unlock();
+    actualizar_leds();
+}
+
+void finalizar_corte(Timer &timer, bool &barbero_libre) {
+    if (timer.read_ms() >= 12000) {         
+        mutex.lock();
+        barbero_libre = true;
+        timer.stop();
+        timer.reset();
+        if (&barbero_libre == &estado.barbero3_libre) {
+            estado.asientos_ocupados -= 2;  // Niño + padre liberan 2 asientos
+        } else {
+            estado.asientos_ocupados -= 1;  // Adulto libera 1 asiento
+        }
+        printf("Corte finalizado. Asientos libres: %d\n", 8 - estado.asientos_ocupados);
+        mutex.unlock();
+        actualizar_leds();
+    }
+}
+
+// --- Handlers de Botones (con debounce) ---
+void boton_adulto_pulsado() {
+    debounce_adulto.attach(callback(boton_adulto_pulsado), 100);
+    cola_eventos.call([] {
+        mutex.lock();
+        if (!estado.emergencia && estado.asientos_ocupados < 8) {
+            estado.asientos_ocupados++;
+            estado.adultos_en_espera++;
+            printf("Adulto entró. Asientos ocupados: %d\n", estado.asientos_ocupados);
+        }
+        mutex.unlock();
+        actualizar_leds();
+    });
+}
+
+void boton_nino_pulsado() {
+    debounce_nino.attach(callback(boton_nino_pulsado), 100);
+    cola_eventos.call([] {
+        mutex.lock();
+        if (!estado.emergencia && estado.asientos_ocupados <= 6) {  // Niño ocupa 2 asientos
+            estado.asientos_ocupados += 2;
+            estado.ninos_en_espera++;
+            printf("Niño + padre entraron. Asientos ocupados: %d\n", estado.asientos_ocupados);
+        }
+        mutex.unlock();
+        actualizar_leds();
+    });
+}
+
+void boton_incendio_pulsado() {
+    debounce_incendio.attach(callback(boton_incendio_pulsado), 100);
+    cola_eventos.call([] {
+        mutex.lock();
+        estado.emergencia = true;
+        estado.asientos_ocupados = 0;
+        estado.adultos_en_espera = 0;
+        estado.ninos_en_espera = 0;
+        timer_barbero1.stop();
+        timer_barbero2.stop();
+        timer_barbero3.stop();
+        estado.barbero1_libre = true;
+        estado.barbero2_libre = true;
+        estado.barbero3_libre = true;
+        printf("¡EMERGENCIA! Todos evacuaron.\n");
+        mutex.unlock();
+        actualizar_leds();
+        
+        // Resetear emergencia después de 5 segundos (opcional)
+        cola_eventos.call_in(5000, [] {
+            estado.emergencia = false;
+            printf("Emergencia desactivada.\n");
+            actualizar_leds();
+        });
+    });
+}
+
+// --- Main ---
+int main() {
+    printf("\n--- Sistema de Barbería Iniciado ---\n");
+    
+    // Configurar interrupciones de botones
+    boton_adulto.rise(&boton_adulto_pulsado);
+    boton_nino.rise(&boton_nino_pulsado);
+    boton_incendio.rise(&boton_incendio_pulsado);
+    
+    // Iniciar hilo para la cola de eventos
+    Thread hilo_eventos;
+    hilo_eventos.start(callback(&cola_eventos, &EventQueue::dispatch_forever));
+    
+    // Bucle principal (verifica cortes cada segundo)
+    while (true) {
+        cola_eventos.call([&] {
+            if (!estado.emergencia) {
+                finalizar_corte(timer_barbero1, estado.barbero1_libre);
+                finalizar_corte(timer_barbero2, estado.barbero2_libre);
+                finalizar_corte(timer_barbero3, estado.barbero3_libre);
+                atender_cliente_adulto();
+                atender_cliente_nino();
+            }
+        });
+        ThisThread::sleep_for(1000);
+    }
+}
