@@ -76,6 +76,3 @@ El código principal se ejecuta en un bucle infinito que realiza las siguientes 
 ## Uso
 
 Compila y carga este código en una placa compatible con Mbed. Conecta los interruptores y los LEDs a los pines especificados y observa el comportamiento de los LEDs según el estado de los interruptores.
-
-## Imágenes de Práctica
-![alt text](<WhatsApp Image 2025-03-27 at 18c:\Users\Usuario\Documents\School\4to Semestre\Electrónica Digital Avanzada\Programas\Mbed\Control_por_bits\Imagenes_Practica\WhatsApp Image 2025-03-27 at 18.55.17_88a0ddf8.jpg.55.17_88a0ddf8.jpg>)
