@@ -6,17 +6,17 @@ Este repositorio contiene una colección de proyectos y ejemplos desarrollados p
 
 ## Contenido del Repositorio
 
-1. [Barberia](https://github.com/brry01/Mbed/tree/main/Barberia)
-2. [Botón Programación Asíncrona](https://github.com/brry01/Mbed/tree/main/Boton_Programacion_Asincrona)
-3. [Botones LED](https://github.com/brry01/Mbed/tree/main/Botones_LED)
-4. [Buses](https://github.com/brry01/Mbed/tree/main/Buses)
-5. [Control por Bits](https://github.com/brry01/Mbed/tree/main/Control_por_bits)
+1. [Barberia](Barberia)
+2. [Botón Programación Asíncrona](Boton_Programacion_Asincrona)
+3. [Botones LED](Botones_LED)
+4. [Buses](Buses)
+5. [Control por Bits](Control_por_bits)
 6. [Control por Buses](Control_por_buses)
-7. [Display](./display)
-8. [Display Shift Register](./display_shift_register)
-9. [Interrupciones](./interrupciones)
-10. [Motor](./motor)
-11. [Sistema de Seguridad para Máquina](./sistema_de_seguridad_para_maquina)
+7. [Display](Display)
+8. [Display Shift Register](Display_Shift_Register)
+9. [Interrupciones](Interrupciones)
+10. [Motor](Motor)
+11. [Sistema de Seguridad para Máquina](Sistema_de_seguridad_para_maquina)
 
 ### Barberia
 
